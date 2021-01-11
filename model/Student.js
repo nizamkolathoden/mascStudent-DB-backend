@@ -46,6 +46,9 @@ const stdentSchema = new mongoose.Schema({
     extraAcivity: {
         type: String
     },
+   specialAchiev: {
+        type:String
+   },
     interest: {
         type: String
     },
@@ -53,7 +56,7 @@ const stdentSchema = new mongoose.Schema({
     email: {
         type: String
     },
-    addmissionSecured: {
+    admissionSecured: {
         type: String
     },
     recommanted: {
@@ -94,6 +97,12 @@ const stdentSchema = new mongoose.Schema({
         }
     }],
 
+        specialProblem:{
+            type:String
+        },
+            maritalStatus:{
+                type:Boolean
+            },
     //remarks you can store remarks also in  array and just like inner objects 
 
         remarks:{
@@ -101,7 +110,7 @@ const stdentSchema = new mongoose.Schema({
           type:Boolean,
 
         },
-        feb:{
+        feb:{ 
             type:Boolean,
 
           },
