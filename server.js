@@ -13,15 +13,20 @@ const Port = process.env.PORT
 DB()
 
 //use json format in server
-app.use(express.json()) 
+app.use(express.json())
 
 //adding routers
 
 //for auth
-app.use('/auth',require('./routes/auth'));
+app.use('/auth', require('./routes/auth'));
 //for studets
-app.use('/student',require('./routes/addStudent'));
-app.use('/subject',require('./routes/subjects'))
+app.use('/student', require('./routes/addStudent'));
+//for subjects
+app.use('/subject', require('./routes/subjects'));
+//for profile
+app.use('/profile', require('./routes/profileStudent'));
+//for remarks
+app.use('/remark', require('./routes/remark'))
 
 //listening the server
-app.listen(Port,()=>console.log(`\u{1F525}\u{1F680} server running on ${process.env.NODE_ENV} in Port ${Port} \u{1F525}\u{1F680}\u{1F525} `))
+app.listen(Port, () => console.log(`\u{1F525}\u{1F680} server running on ${process.env.NODE_ENV} in Port ${Port} \u{1F525}\u{1F680}\u{1F525} `))

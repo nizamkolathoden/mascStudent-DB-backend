@@ -72,6 +72,16 @@ const stdentSchema = new mongoose.Schema({
         type:String
     },
 
+    //prev %
+
+    sslc:{
+        type:String
+    },
+
+    hss:{
+        type:String
+    },
+
     subjects: [{
         name: {
             type: String
@@ -127,7 +137,7 @@ const stdentSchema = new mongoose.Schema({
             type:Boolean,
 
           },
-        nav:{
+        nov:{
             type:Boolean,
 
           },

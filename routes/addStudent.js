@@ -9,7 +9,7 @@ router.post("/newstudent", (req, res) => {
     const { name, mob1, mob2, dob, sex, bloodGroup,
         nameOfGuardian, addressOfGuardian, relationGuardin,
         occupationOfGuardian, religion, prevShool, residence,
-        course, sem,batch } = req.body;
+        course, sem, batch,sslc,hss } = req.body;
 
     if (!name || !mob1 || !dob || !sex || !bloodGroup ||
         !nameOfGuardian || !addressOfGuardian || !relationGuardin ||
@@ -33,198 +33,17 @@ router.post("/newstudent", (req, res) => {
         residence,
         course,
         sem,
-        batch
+        batch,
+        sslc,
+        hss
 
     }).save().then(savedData => {
         res.json(savedData)
     })
         .catch(e => {
-            console.log('error in save new student', e);
+            console.log('\u{1F525} on Ass error in save new student', e);
         })
 
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/jan
-
-router.put("/addremark/jan", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.jan": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/feb
-
-router.put("/addremark/feb", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.feb": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/march
-
-router.put("/addremark/march", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.march": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/jan
-
-router.put("/addremark/april", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.april": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/may
-
-router.put("/addremark/may", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.may": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-
-//@dsc for adding remarks
-//@route put /student/addremark/jun
-
-router.put("/addremark/jun", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.jun": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/july
-
-router.put("/addremark/july", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.july": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremarks/aug
-
-router.put("/addremark/aug", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.aug": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/may
-
-router.put("/addremark/sep", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.sep": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/oct
-
-router.put("/addremark/oct", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.oct": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/nav
-
-router.put("/addremark/nav", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.nav": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/oct
-
-router.put("/addremark/oct", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.oct": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
-})
-
-//@dsc for adding remarks
-//@route put /student/addremark/dec
-
-router.put("/addremark/dec", (req, res) => {
-    const { id, boo } = req.body;
-    Student.findByIdAndUpdate(id, {
-        $set: {
-            "remarks.dec": boo
-        }
-    }, {
-        new: true
-    }).then(data => res.json(data))
 })
 
 
@@ -232,7 +51,12 @@ router.put("/addremark/dec", (req, res) => {
 //@route put /student/delete
 
 router.delete("/delete", (req, res) => {
-    Student.findByIdAndDelete(req.body.id).then(data => res.json(data))
+    Student.findByIdAndDelete(req.body.id)
+    .then(data => res.json(data))
+    .catch(e => {
+        console.log('\u{1F525} on Ass error in delete student', e);
+    })
+
 })
 
 
@@ -240,18 +64,47 @@ router.delete("/delete", (req, res) => {
 //@route get /student/all
 
 router.get('/all', (req, res) => {
-    Student.find().then(data=>{
+    Student.find().then(data => {
         res.json(data)
+    })
+    .catch(e => {
+        console.log('\u{1F525} on Ass error in all data', e);
     })
 })
 
-//@dsc for show all  studets
-//@route get /student/all
+//@desc for filter
+//@route get /student/filter
 
-router.get('/course', (req, res) => {
-    Student.find().then(data=>{
-        res.json(data)
+router.get('/filter',(req,res)=>{
+
+    Student.find().select('course batch sem')
+    .exec((err,filter)=>{
+        if(err)
+         {
+            console.log('error in filter',err);
+            res.json({error:'something went wrong contact mr Nizam'})
+         }
+        else{
+            res.json(filter)
+        }
     })
+})
+
+
+//@desc for filter students data
+//@route get /student/filterStudent
+
+router.get('/filterStudent',(req,res)=>{
+
+        const {course,batch,sem} = req.body
+    Student.find({ $and: [{ course: course }, { batch:batch },{sem:sem}] 
+   }).then(data=>{
+       res.json(data)
+
+   }).catch(e=>{
+       console.log('\u{1F525} on Ass',e);
+       res.json({error:'something went wrong contact the dev'})
+   })
 })
 
 
