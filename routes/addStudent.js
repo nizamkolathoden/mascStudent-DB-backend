@@ -78,12 +78,20 @@ router.get('/all', (req, res) => {
 //@route get /student/filter
 
 router.get('/filter', (req, res) => {
-
-    Student.find().select('course batch sem')
+    // aggreate a little bit advance form of mongodb if you don't understand read doc
+    Student.aggregate([
+        {$group:{
+                //we put _id null for to remove duplication
+            _id:null,
+            course:{$addToSet:'$course'},
+            sem:{$addToSet:"$sem"},
+            batch:{$addToSet:"$batch"}
+        }}
+    ])
         .exec((err, filter) => {
             if (err) {
                 console.log('error in filter', err);
-                res.json({ error: 'something went wrong contact mr Nizam' })
+                res.json({ error: 'something went wrong contact dev' })
             }
             else {
                 res.json(filter)
@@ -93,11 +101,14 @@ router.get('/filter', (req, res) => {
 
 
 //@desc for filter students data
-//@route get /student/filterStudent
+//@route put /student/filterStudent
 
-router.get('/filterStudent', (req, res) => {
+router.put('/filterStudent', (req, res) => {
 
     const { course, batch, sem } = req.body
+    if(!course) return res.json({error:'course error'})
+    if(!batch)return  res.json({error:'batch error'})
+    if(!sem) return res.json({error:'sem error'})
     Student.find({
         $and: [{ course: course }, { batch: batch }, { sem: sem }]
     }).then(data => {
