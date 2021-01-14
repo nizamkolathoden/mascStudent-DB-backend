@@ -8,6 +8,10 @@ const authSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    rule:{
+        type:String,
+        default:'user'
     }
 })
 

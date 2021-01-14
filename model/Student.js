@@ -1,12 +1,23 @@
 const mongoose = require('mongoose');
 
+const {ObjectId} = mongoose.Schema.Types
+
 const stdentSchema = new mongoose.Schema({
-    name: {
+   fName: {
         type: String,
         required: true
     },
+    lName:{
+        type:String
+    },
+    //discard
+   discard:{
+    type:Boolean,
+    default:false
+    },
     mob1: {
-        type: Number
+        type: Number,
+        required:true
     },
     mob2: {
         type: Number
@@ -154,8 +165,19 @@ const stdentSchema = new mongoose.Schema({
             type:Boolean,
 
           }
-        }
-      
+        },
+      //responsible Guardian
+
+      responsibleGuardian:{
+          name:String,
+          age:String,
+          relation:String,
+          mob:Number
+      },
+      postedBy:{
+          type:ObjectId,
+          ref:'auth'
+      }
   
 
 })

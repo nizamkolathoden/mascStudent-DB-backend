@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+const {adminUser} = require('../middleware/index')
 //jwt
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET
@@ -24,7 +24,7 @@ router.post("/login", (req, res) => {
                     //its a simple jsonweb token if you want know more read jwt docs
                     const token = jwt.sign({_id:data._id},JWT_SECRET)
                     
-                    res.json({token})
+                    res.json({token:token,rule:data.rule})
                 } else {
                     return res.json({ error: "wrong userName or Password" });
                 }
@@ -46,13 +46,14 @@ router.post("/login", (req, res) => {
 //@route post /auth/signup 
 //@desc its for testing and changing username and password
 
-/* router.post("/signup", (req, res) => {
-    const { userName, password } = req.body;
+router.post("/signup",adminUser, (req, res) => {
+    const { userName, password,rule } = req.body;
     if (!userName || !password) return res.status(401).json({ error: "you asshole why didn't enter the password and username" });
     bcrypt.hash(password, 13).then(hashedPassword => {
         new auth({
             userName,
-            password: hashedPassword
+            password: hashedPassword,
+            rule
         }).save().then(data => res.json(data))
             .catch(e => {
                 console.log('error in adding user name and password', e);
@@ -63,7 +64,7 @@ router.post("/login", (req, res) => {
         })
 
 
-}) */
+})
 
 
 module.exports = router
