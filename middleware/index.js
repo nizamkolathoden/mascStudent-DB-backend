@@ -29,7 +29,7 @@ const user = (req, res, next) => {
                 next()
 
             } else {
-                res.json({ error: 'un Authrized User' });
+                res.json({ error: 'un Authrized User nrmal' });
             }
 
         })

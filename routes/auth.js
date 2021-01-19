@@ -49,7 +49,7 @@ router.post("/login", (req, res) => {
 router.post("/signup",adminUser, (req, res) => {
     const { userName, password,rule } = req.body;
     if (!userName || !password) return res.status(401).json({ error: "you asshole why didn't enter the password and username" });
-    bcrypt.hash(password, 13).then(hashedPassword => {
+    bcrypt.hash(password, 9).then(hashedPassword => {
         new auth({
             userName,
             password: hashedPassword,
