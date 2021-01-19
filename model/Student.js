@@ -19,6 +19,10 @@ const stdentSchema = new mongoose.Schema({
         type: Number,
         required:true
     },
+    etcActivity:{
+      type:String  
+    },
+
     mob2: {
         type: Number
     },
@@ -36,8 +40,20 @@ const stdentSchema = new mongoose.Schema({
     nameOfGuardian: {
         type: String
     },
+    //address
     addressOfGuardian: {
-        type: String
+       homeName:{
+           type:String
+       },
+       post:{
+        type:String
+       },
+       pincode:{
+           type:Number
+       },
+       city:{
+           type:String
+       }
     },
     relationGuardin: {
         type: String
@@ -45,12 +61,23 @@ const stdentSchema = new mongoose.Schema({
     occupationOfGuardian: {
         type: String
     },
+    ageOfGuardian:{
+        type:Number
+    },
     religion: {
         type: String
     },
+    cast:{
+        type:String
+    },
+    //prev school and prev course i know there will be typo error but i realize so long 
     prevShool: {
         type: String
     },
+    prevCourse:{
+        type:String
+    },
+
     residence: {
         type: String
     },
@@ -172,7 +199,8 @@ const stdentSchema = new mongoose.Schema({
           name:String,
           age:String,
           relation:String,
-          mob:Number
+          mob:Number,
+          occupation:String
       },
       postedBy:{
           type:ObjectId,

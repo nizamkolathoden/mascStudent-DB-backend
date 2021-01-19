@@ -25,7 +25,7 @@ router.put("/addsubjects", (req, res) => {
             }).catch(e => {
                 console.log('fucking error at subject adding auto sub', e)
             })
-            // now i comment this if you want this plz un comment not recomment
+            // now I'm comment this if you want this plz un comment not recomment
             // res.json('add all student fields')
         })
 

@@ -62,7 +62,7 @@ const adminUser = (req, res, next) => {
                 next()
 
             } else {
-                res.stat(401).json({ error: 'un Authrized User' })
+                res.status(401).json({ error: 'un Authrized User' })
             }
 
         })
@@ -97,11 +97,13 @@ const Posted = (req, res, next) => {
                     next()
 
                 } else {
-                    res.stat(401).json({ error: 'un Authrized User' })
+                    res.status(401).json({ error: 'un Authrized User' })
                 }
             })
 
 
+        }).catch(e=>{
+            console.log('error at checking userPost in middleware',e);
         })
             .catch(e => {
                 console.log(e)

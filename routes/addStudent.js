@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { user } = require('../middleware/index')
+const { user } = require('../middleware/index');
+const { Posted } = require('../middleware/index')
 //student DB||model
 const Student = require('../model/Student')
 
@@ -7,25 +8,70 @@ const Student = require('../model/Student')
 //@route post /student/newstudent
 router.post("/newstudent", user, (req, res) => {
     const { fName, lName, mob1, mob2, dob, sex, bloodGroup,
-        nameOfGuardian, addressOfGuardian, relationGuardin,
+        nameOfGuardian, homeName, post, pincode,
+        city, relationGuardin,
         occupationOfGuardian, religion, prevShool, residence,
         course, sem, batch, sslc, hss, specialProblem,
         recommanted, responsibleGuardianName, responsibleGuardianAge,
-        responsibleGuardianMob, responsibleGuardianRelation } = req.body;
-
+        responsibleGuardianMob, responsibleGuardianRelation, cast, email,
+        ageOfGuardian,responsibleGuardianOccupation,etcActivity,specialAchiev,
+        maritalStatus,prevCourse,admissionSecured,pic } = req.body;
+/* 
     if (!fName || !lName || !mob1 || !dob || !sex || !bloodGroup ||
-        !nameOfGuardian || !addressOfGuardian || !relationGuardin ||
-        !occupationOfGuardian || !religion || !prevShool ||
+        !nameOfGuardian || !relationGuardin ||
+        !occupationOfGuardian || !prevShool ||
         !residence || !course || !batch || !responsibleGuardianName
         || !responsibleGuardianAge || !responsibleGuardianMob
-        || !responsibleGuardianRelation)
+        || !responsibleGuardianRelation || !homeName
+        || !post || !pincode || !city || !email || !ageOfGuardian)
+
         return res.json({ error: 'enter required fields' });
+ */
+        if (!fName)  return res.json({ error: 'enter name' });
+
+        if (!lName) return res.json({ error: 'enter lnames' });
+
+        if (!mob1 )
+            return res.json({ error: 'enter required mob1' });
+
+            if ( !dob)
+                return res.json({ error: 'enter required dob' });
+
+                if (!sex )
+                    return res.json({ error: 'enter required fields sex' });
+
+                    if ( !bloodGroup)
+                        return res.json({ error: 'enter required fields blood' });
+
+                        if (!nameOfGuardian)
+                            return res.json({ error: 'enter required fields nameofGuardian' });
+                           
+                            if (!relationGuardin)
+                        
+                                return res.json({ error: 'enter required fields relation' });
+                                if (
+                                    !occupationOfGuardian || !prevShool ||
+                                    !residence || !course || !batch || !responsibleGuardianName
+                                    || !responsibleGuardianAge || !responsibleGuardianMob
+                                    || !responsibleGuardianRelation || !homeName
+                                    || !post || !pincode || !city || !email || !ageOfGuardian)
+                            
+                                    return res.json({ error: 'enter required fields other' });
+
     const responsibleGuardian = {
         name: responsibleGuardianName,
         age: responsibleGuardianAge,
         relation: responsibleGuardianRelation,
-        mob: responsibleGuardianMob
+        mob: responsibleGuardianMob,
+        occupation:responsibleGuardianOccupation
     }
+    const addressOfGuardian = {
+        homeName,
+        post,
+        pincode,
+        city
+    }
+
     new Student({
         fName,
         lName,
@@ -35,7 +81,6 @@ router.post("/newstudent", user, (req, res) => {
         sex,
         bloodGroup,
         nameOfGuardian,
-        addressOfGuardian,
         relationGuardin,
         occupationOfGuardian,
         religion,
@@ -49,7 +94,17 @@ router.post("/newstudent", user, (req, res) => {
         specialProblem,
         recommanted,
         postedBy: req.user,
-        responsibleGuardian
+        responsibleGuardian,
+        addressOfGuardian,
+        cast,
+        email,
+        ageOfGuardian,
+        etcActivity,
+        specialAchiev,
+        maritalStatus,
+        prevCourse,
+        admissionSecured,
+        pic
 
 
     }).save().then(savedData => {
@@ -63,9 +118,9 @@ router.post("/newstudent", user, (req, res) => {
 
 
 //@dsc for deletig studets
-//@route put /student/delete
+//@route delete /student/delete
 
-router.delete("/delete", (req, res) => {
+router.delete("/delete", Posted, (req, res) => {
     Student.findByIdAndDelete(req.body.id)
         .then(data => res.json(data))
         .catch(e => {
