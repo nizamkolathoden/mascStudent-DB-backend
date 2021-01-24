@@ -261,7 +261,6 @@ Student.findByIdAndUpdate(id,{
         maritalStatus,
         prevCourse,
         admissionSecured,
-        pic,
         admno
 
 
