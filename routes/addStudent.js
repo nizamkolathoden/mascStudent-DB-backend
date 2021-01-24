@@ -15,7 +15,7 @@ router.post("/newstudent", user, (req, res) => {
         recommanted, responsibleGuardianName, responsibleGuardianAge,
         responsibleGuardianMob, responsibleGuardianRelation, cast, email,
         ageOfGuardian,responsibleGuardianOccupation,etcActivity,specialAchiev,
-        maritalStatus,prevCourse,admissionSecured,pic } = req.body;
+        maritalStatus,prevCourse,admissionSecured,pic,admno } = req.body;
 /* 
     if (!fName || !lName || !mob1 || !dob || !sex || !bloodGroup ||
         !nameOfGuardian || !relationGuardin ||
@@ -54,7 +54,7 @@ router.post("/newstudent", user, (req, res) => {
                                     !residence || !course || !batch || !responsibleGuardianName
                                     || !responsibleGuardianAge || !responsibleGuardianMob
                                     || !responsibleGuardianRelation || !homeName
-                                    || !post || !pincode || !city || !email || !ageOfGuardian)
+                                    || !post || !pincode || !city || !email)
                             
                                     return res.json({ error: 'enter required fields other' });
 
@@ -104,7 +104,8 @@ router.post("/newstudent", user, (req, res) => {
         maritalStatus,
         prevCourse,
         admissionSecured,
-        pic
+        pic,
+        admno
 
 
     }).save().then(savedData => {
@@ -189,6 +190,90 @@ router.put('/filterStudent', (req, res) => {
         res.json({ error: 'something went wrong contact the dev' })
     })
 })
+
+//@desc to put new student data
+//@route post /student/editstudent
+router.put("/editstudent", user, (req, res) => {
+    const { fName, lName, mob1, mob2, dob, sex, bloodGroup,
+        nameOfGuardian, homeName, post, pincode,
+        city, relationGuardin,
+        id,
+        occupationOfGuardian, religion, prevShool, residence,
+        course, sem, batch, sslc, hss, specialProblem,
+        recommanted, responsibleGuardianName, responsibleGuardianAge,
+        responsibleGuardianMob, responsibleGuardianRelation, cast, email,
+        ageOfGuardian,responsibleGuardianOccupation,etcActivity,specialAchiev,
+        maritalStatus,prevCourse,admissionSecured,pic,admno } = req.body;
+/* 
+    if (!fName || !lName || !mob1 || !dob || !sex || !bloodGroup ||
+        !nameOfGuardian || !relationGuardin ||
+        !occupationOfGuardian || !prevShool ||
+        !residence || !course || !batch || !responsibleGuardianName
+        || !responsibleGuardianAge || !responsibleGuardianMob
+        || !responsibleGuardianRelation || !homeName
+        || !post || !pincode || !city || !email || !ageOfGuardian)
+
+        return res.json({ error: 'enter required fields' });
+ */
+        
+    const responsibleGuardian = {
+        name: responsibleGuardianName,
+        age: responsibleGuardianAge,
+        relation: responsibleGuardianRelation,
+        mob: responsibleGuardianMob,
+        occupation:responsibleGuardianOccupation
+    }
+    const addressOfGuardian = {
+        homeName,
+        post,
+        pincode,
+        city
+    }
+Student.findByIdAndUpdate(id,{
+        fName,
+        lName,
+        mob1,
+        mob2,
+        dob,
+        sex,
+        bloodGroup,
+        nameOfGuardian,
+        relationGuardin,
+        occupationOfGuardian,
+        religion,
+        prevShool,
+        residence,
+        course,
+        sem,
+        batch,
+        sslc,
+        hss,
+        specialProblem,
+        recommanted,
+        postedBy: req.user,
+        responsibleGuardian,
+        addressOfGuardian,
+        cast,
+        email,
+        ageOfGuardian,
+        etcActivity,
+        specialAchiev,
+        maritalStatus,
+        prevCourse,
+        admissionSecured,
+        pic,
+        admno
+
+
+    }).then(savedData => {
+        res.json(savedData)
+    })
+        .catch(e => {
+            console.log('\u{1F525} on Ass error in save new student', e);
+        })
+
+})
+
 
 
 module.exports = router;

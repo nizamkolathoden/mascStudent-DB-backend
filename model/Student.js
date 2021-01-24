@@ -10,6 +10,10 @@ const stdentSchema = new mongoose.Schema({
     lName:{
         type:String
     },
+
+    admno:{
+        type:String
+    },
     //discard
    discard:{
     type:Boolean,
@@ -20,14 +24,14 @@ const stdentSchema = new mongoose.Schema({
         required:true
     },
     etcActivity:{
-      type:String  
+      type:Array  
     },
 
     mob2: {
         type: Number
     },
     dob: {
-        type: Date
+        type: String
     },
     sex: {
         type: String,

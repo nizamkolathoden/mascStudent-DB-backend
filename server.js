@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-
+const cors = require('cors')
 const DB = require('./config/DB')
-
+app.use(cors())
 //env
 const dot = require('dotenv');
 dot.config({ path: './config/key.env' })
