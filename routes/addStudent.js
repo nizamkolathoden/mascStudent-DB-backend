@@ -193,7 +193,7 @@ router.put('/filterStudent', (req, res) => {
 
 //@desc to put new student data
 //@route post /student/editstudent
-router.put("/editstudent", user, (req, res) => {
+router.put("/editstudent", Posted, (req, res) => {
     const { fName, lName, mob1, mob2, dob, sex, bloodGroup,
         nameOfGuardian, homeName, post, pincode,
         city, relationGuardin,
