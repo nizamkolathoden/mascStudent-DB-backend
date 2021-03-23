@@ -6,7 +6,7 @@ const Student = require('../model/Student')
 
 //@desc to post new student data
 //@route post /student/newstudent
-router.post("/newstudent", user, (req, res) => {
+router.post("https://majlis123.herokuapp.com/newstudent", user, (req, res) => {
     const { fName, lName, mob1, mob2, dob, sex, bloodGroup,
         nameOfGuardian, homeName, post, pincode,
         city, relationGuardin,
