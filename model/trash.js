@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { ObjectId } = mongoose.Schema.Types
 
-const stdentSchema = new mongoose.Schema({
+const trashSchema = new mongoose.Schema({
     fName: {
         type: String,
         required: true
@@ -210,8 +210,7 @@ const stdentSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'auth'
     }
-
-
 })
 
-module.exports = mongoose.model("student", stdentSchema);
+
+module.exports = mongoose.model("trash", trashSchema);

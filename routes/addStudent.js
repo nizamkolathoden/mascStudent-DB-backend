@@ -3,10 +3,12 @@ const { user } = require('../middleware/index');
 const { Posted } = require('../middleware/index')
 //student DB||model
 const Student = require('../model/Student')
+const Trash = require('../model/trash')
+
 
 //@desc to post new student data
 //@route post /student/newstudent
-router.post("https://majlis123.herokuapp.com/newstudent", user, (req, res) => {
+router.post("/newstudent", user, (req, res) => {
     const { fName, lName, mob1, mob2, dob, sex, bloodGroup,
         nameOfGuardian, homeName, post, pincode,
         city, relationGuardin,
@@ -27,6 +29,16 @@ router.post("https://majlis123.herokuapp.com/newstudent", user, (req, res) => {
     
             return res.json({ error: 'enter required fields' });
      */
+    if (!fName) return res.json({ error: 'enter name' });
+
+    if (!lName) return res.json({ error: 'enter lnames' });
+
+    if (!mob1)
+        return res.json({ error: 'enter required mob1' });
+
+    if (!dob)
+        return res.json({ error: 'enter required dob' });
+
     if (!sex)
         return res.json({ error: 'enter required fields sex' });
 
@@ -125,10 +137,82 @@ router.delete("/delete", Posted, (req, res) => {
 //@route delete /student/trash
 
 router.put("/trash", (req, res) => {
-    Student.findByIdAndUpdate(req.body.id, {
-        discard: true
-    })
-        .then(data => res.json(data))
+    Student.findById(req.body.id)
+        .then(data => {
+
+            if (!data) return res.status(500).json({ error: "user alerady deleted" })
+
+            const { fName, lName, mob1, mob2, dob, sex, bloodGroup,
+                nameOfGuardian, homeName, post, pincode,
+                city, relationGuardin,
+                occupationOfGuardian, religion, prevShool, residence,
+                course, sem, batch, sslc, hss, specialProblem,
+                recommanted, responsibleGuardianName, responsibleGuardianAge,
+                responsibleGuardianMob, responsibleGuardianRelation, cast, email,
+                ageOfGuardian, responsibleGuardianOccupation, etcActivity, specialAchiev,
+                maritalStatus, prevCourse, admissionSecured, pic, admno } = data;
+
+            const responsibleGuardian = {
+                name: responsibleGuardianName,
+                age: responsibleGuardianAge,
+                relation: responsibleGuardianRelation,
+                mob: responsibleGuardianMob,
+                occupation: responsibleGuardianOccupation
+            }
+            const addressOfGuardian = {
+                homeName,
+                post,
+                pincode,
+                city
+            }
+
+            new Trash({
+                fName,
+                lName,
+                mob1,
+                mob2,
+                dob,
+                sex,
+                bloodGroup,
+                nameOfGuardian,
+                relationGuardin,
+                occupationOfGuardian,
+                religion,
+                prevShool,
+                residence,
+                course,
+                sem,
+                batch,
+                sslc,
+                hss,
+                specialProblem,
+                recommanted,
+                postedBy: req.user,
+                responsibleGuardian,
+                addressOfGuardian,
+                cast,
+                email,
+                ageOfGuardian,
+                etcActivity,
+                specialAchiev,
+                maritalStatus,
+                prevCourse,
+                admissionSecured,
+                pic,
+                admno
+
+
+            }).save().then(savedData => {
+                res.json(savedData)
+                Student.findByIdAndDelete(req.body.id).then(deletedData => {
+                    console.log('deleted', deletedData)
+                })
+            })
+                .catch(e => {
+                    console.log('\u{1F525} on Ass error in save new student', e);
+                })
+
+        })
         .catch(e => {
             console.log('\u{1F525} on Ass error in delete student', e);
         })
@@ -156,11 +240,7 @@ router.get('/all', (req, res) => {
 router.get('/filter', (req, res) => {
     // aggreate a little bit advance form of mongodb if you don't understand read doc
     Student.aggregate([
-        {
-            $match: {
-                'discard': 'false'
-            }
-        },
+
         {
             $group: {
 
