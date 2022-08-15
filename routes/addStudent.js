@@ -49,15 +49,7 @@ router.post("/newstudent", user, (req, res) => {
     if (!relationGuardin)
 
         return res.json({ error: 'enter required fields relation' });
-    if (
-        !occupationOfGuardian || !prevShool ||
-        !residence || !course || !batch || !responsibleGuardianName
-        || !responsibleGuardianAge || !responsibleGuardianMob
-        || !responsibleGuardianRelation || !homeName
-        || !post || !pincode || !city || !email)
-
-        return res.json({ error: 'enter required fields other' });
-
+   
     const responsibleGuardian = {
         name: responsibleGuardianName,
         age: responsibleGuardianAge,
