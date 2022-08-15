@@ -17,8 +17,8 @@
 .env.development.local
 .env.test.local
 .env.production.local
- key.env
 
+host
 
 yarn-debug.log*
 yarn-error.log*

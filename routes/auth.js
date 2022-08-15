@@ -46,9 +46,9 @@ router.post("/login", (req, res) => {
 //@route post /auth/signup 
 //@desc its for testing and changing username and password
 
-router.post("/signup",adminUser, (req, res) => {
+router.post("/signup", (req, res) => {
     const { userName, password,rule } = req.body;
-    if (!userName || !password) return res.status(401).json({ error: "you asshole why didn't enter the password and username" });
+    if (!userName || !password) return res.status(401).json({ error: " enter the password and username" });
     bcrypt.hash(password, 9).then(hashedPassword => {
         new auth({
             userName,

@@ -28,5 +28,9 @@ app.use('/profile', require('./routes/profileStudent'));
 //for remarks
 app.use('/remark', require('./routes/remark'))
 
+app.get("/",(req,res)=>{
+    res.json("hello 🥰")
+})
+
 //listening the server
 app.listen(Port, () => console.log(`\u{1F525}\u{1F680} server running on ${process.env.NODE_ENV} in Port ${Port} \u{1F525}\u{1F680}\u{1F525} `))
